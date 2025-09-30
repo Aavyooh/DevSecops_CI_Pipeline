@@ -4,26 +4,15 @@ on:
     branches:
       - master 
       - feature
-      
-env:
-        DOCKER_IMAGE: ankit1111/petapp:${{ github.sha }}
-        MAVEN_OPTS: "-DskipTests=true"      
-
 jobs:
   build:
-    uses: ./.github/workflows/javabuild.yml
-    secrets: inherit
-  sonar:
-     uses: ./.github/workflows/sonar.yml
-     needs: build
-     secrets: inherit     
+    runs-on: 
+      - ubuntu-runner
+      - self-hosted
+      - prod
+      - dev
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-  test:
-    uses: ./.github/workflows/test.yml
-    needs: sonar
-    secrets: inherit  
-
-  imagepush:
-    uses: ./.github/workflows/imagepush.yml
-    needs: test
-    secrets: inherit  
+    
