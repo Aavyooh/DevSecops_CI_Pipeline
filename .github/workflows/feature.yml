@@ -6,7 +6,7 @@ on:
       - feature
 jobs:
   build:
-    runs-on: [self-hosted, ubuntu-runner, prod]
+    runs-on: ubuntu-runner
       
     steps:
       - name: Checkout Code
