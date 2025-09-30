@@ -6,7 +6,7 @@ on:
 
 jobs:
   image_push:
-    runs-on: java_build
+    runs-on: ["java_build", "ubuntu-runner","prod"]
     env:
       DOCKER_IMAGE: ankit1111/petapp:${{ github.sha }}
 

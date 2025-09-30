@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - master 
-      - develop
+      - feature
       
 env:
         DOCKER_IMAGE: ankit1111/petapp:${{ github.sha }}
