@@ -6,11 +6,8 @@ on:
       - feature
 jobs:
   build:
-    runs-on: 
-      - ubuntu-runner
-      - self-hosted
-      - prod
-      - dev
+    runs-on: [self-hosted, ubuntu-runner, prod]
+      
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
