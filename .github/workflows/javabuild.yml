@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: ["java_build", "ubuntu-runner","prod"]
+    runs-on: ubuntu-runner
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
