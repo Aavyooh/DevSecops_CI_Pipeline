@@ -6,7 +6,11 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-runner
+    runs-on: 
+      - ubuntu-runner
+      - self-hosted
+      - prod
+      - dev
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3

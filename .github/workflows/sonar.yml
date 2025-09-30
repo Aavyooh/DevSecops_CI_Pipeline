@@ -6,7 +6,11 @@ on:
 
 jobs:
   sonar:
-    runs-on: ["java_build", "ubuntu-runner","prod"]
+    runs-on: 
+      - ubuntu-runner
+      - self-hosted
+      - prod
+      - dev
     #needs: build  # Ensures Sonar runs after build succeeds
     steps:
       - name: SonarCloud Scan
