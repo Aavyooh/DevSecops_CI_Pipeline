@@ -1,0 +1,46 @@
+# .github/workflows/build.yml
+name: Build
+
+on: 
+ workflow_call:
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+          cache: maven
+
+      - name: Show workspace path
+        run: echo "Workspace is ${{ github.workspace }}"
+
+      - name: List files in workspace
+        run: ls "${{ github.workspace }}"    
+
+      - name: Cache Maven Dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+
+      - name: Build with Maven
+        run: mvn clean install
+
+      - name: Configure JFrog CLI
+        uses: jfrog/setup-jfrog-cli@v3
+        with:
+          version: latest
+        env:
+          JF_URL: https://trial8evkx7.jfrog.io/
+          JF_ACCESS_TOKEN: ${{ secrets.JFROG_TOKEN }}
+
+      - name: Upload JAR to JFrog
+        run: |
+           jf rt u "target/*.jar" "petjfrog-repo/"     

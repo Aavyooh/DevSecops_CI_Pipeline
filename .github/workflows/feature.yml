@@ -3,13 +3,30 @@ on:
   push:
     branches:
       - master 
+      - develop
       - feature
+      
+env:
+        DOCKER_IMAGE: niv/petapp:${{ github.sha }}
+        MAVEN_OPTS: "-DskipTests=true"      
+
 jobs:
   build:
-    runs-on: self-hosted
-      
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+    uses: ./.github/workflows/build.yml
+    secrets: inherit
 
+  sonar:
+     uses: ./.github/workflows/sonar.yml
+     needs: build
+     secrets: inherit     
+
+  test:
+    uses: ./.github/workflows/test.yml
+    needs: sonar
+    secrets: inherit  
+
+  imagepush:
+    uses: ./.github/workflows/imagepush.yml
+    needs: test
+    secrets: inherit  
     
