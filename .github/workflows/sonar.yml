@@ -1,4 +1,4 @@
-# .github/workflows/sonar.yml
+## .github/workflows/sonar.yml
 name: Sonar Scan
 
 on:
